@@ -95,7 +95,6 @@ function renderTasks() {
 
   
 
-// ... Rest of your code remains unchanged
 
 
 function createAddTaskInput() {
