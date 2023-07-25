@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO APP</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"></script>
+
+  <script>
+  
+  // Import the functions you need from the SDKs you need
+  
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Reference to the Firebase Realtime Database
+    const database = firebase.firestore();
+
+    function saveTasksToLocalStorage() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function loadTasksFromLocalStorage() {
+      const storedTasks = localStorage.getItem("tasks");
+      if (storedTasks) {
+        tasks = JSON.parse(storedTasks);
+      } else {
+        tasks = [];
+      }
+    }
+
+    loadTasksFromLocalStorage();
+
+    function addTask(title) {
+      saveTasksToLocalStorage();
+    }
+
+    function removeTask(index) {
+      saveTasksToLocalStorage();
+    }
+
+    function toggleCompleted(index, checkbox) {
+      saveTasksToLocalStorage();
+    }
+
+
+
+   // ... (Your existing code)
+
+   function addTask(title) {
+      const newTask = { title };
+      tasks.push(newTask);
+      renderTasks();
+      const message = `Task "${title}" added.`;
+      saveTasksToLocalStorage();
+      speakMessageContent(message); // Call the function with the message after the tasks are rendered
+    }
+
+    function removeTask(index) {
+      const removedTask = tasks[index].title;
+      tasks.splice(index, 1);
+      renderTasks();
+      const message = `Task "${removedTask}" deleted.`;
+      saveTasksToLocalStorage();
+      speakMessageContent(message); // Call the function with the message after the tasks are rendered
+    }
+
+function speakMessageContent(message) {
+  const utterance = new SpeechSynthesisUtterance(message);
+  utterance.lang = "en-US"; // Set the language for speech synthesis
+
+  // Get the selected voice from localStorage
+  const selectedVoice = localStorage.getItem("selectedVoice");
+
+  if (selectedVoice !== "default") {
+    utterance.voice = window.speechSynthesis.getVoices().find(voice => voice.name === selectedVoice);
+  }
+
+  // Optional: Set additional properties for the speech synthesis, if needed
+  // utterance.volume = 1; // 0 to 1
+  // utterance.rate = 1; // 0.1 to 10
+  // utterance.pitch = 1; // 0 to 2
+
+  // Speak the message only if there is a voice available
+  if (window.speechSynthesis.getVoices().length > 0) {
+    window.speechSynthesis.speak(utterance);
+  }
+}
+
+// ... (Your existing code)
+
+
+
+
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="script.js"></script>
+</body>
+</html>
