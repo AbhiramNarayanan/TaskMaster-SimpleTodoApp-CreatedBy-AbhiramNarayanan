@@ -86,14 +86,14 @@ body {
   }
   
   .task-checkbox {
-    margin-right: 10px; /* Add some space between checkbox and text */
+    margin-right: 10px; 
   }
   
   .list-tasks .completed {
     text-decoration: line-through;
-    text-decoration-color: red; /* Apply line-through style in red color for completed tasks */
+    text-decoration-color: red; 
   }
-  /* Your existing CSS rules remain unchanged */
+  
 
 /* New CSS rules to position the two divs */
 .tasks-container {
